@@ -10,9 +10,10 @@ h1{
  
 #wrapper{
     width: 500px;
-    height: 600px;
+    height: 475px;
     background-color: green;
     margin: 0 auto;
+    margin-top: -50px;
     text-align: center; 
     border: thin dotted white;
     
@@ -20,7 +21,7 @@ h1{
 
 .box{
     width: 400px;
-    height: 250px;
+    height: 180px;
     display: inline-block;
     border: thin solid white;
     font-family:'Sawarabi Mincho', sans-serif;
@@ -55,6 +56,9 @@ h1{
     border: dotted white;
     line-height: 80px;
     float: right;
+    Position: absolute;
+    top: 75%;
+    right: 3%;
 }
 .chip5 {
     width: 75px;
@@ -67,4 +71,9 @@ h1{
     border: dotted white;
     line-height: 80px;
     float: right;
+    Position: absolute;
+    top: 75%;
+    right: 15%;
 }
+
+    
