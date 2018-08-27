@@ -1,0 +1,70 @@
+body{
+    background: green;
+    text-align: center;
+}
+h1{
+    font-family:'Sawarabi Mincho', sans-serif;
+    font-size: 64px;
+    margin-top: 10px;
+}
+ 
+#wrapper{
+    width: 500px;
+    height: 600px;
+    background-color: green;
+    margin: 0 auto;
+    text-align: center; 
+    border: thin dotted white;
+    
+}
+
+.box{
+    width: 400px;
+    height: 250px;
+    display: inline-block;
+    border: thin solid white;
+    font-family:'Sawarabi Mincho', sans-serif;
+    margin-top: 20px;
+}
+#dealer{
+    background: lightgreen;
+    margin: 30px;
+}
+
+#player{
+    background: lightgreen;
+}
+ 
+.btn{
+    padding: 5px;
+    margin-bottom: 25px;
+    margin: 20px;
+    font-family:'Sawarabi Mincho', sans-serif;
+    font-size: 20px;
+    
+}
+
+.chip10 {
+    width: 75px;
+    height: 75px;
+    border-radius: 37.5px;
+    background-color: red;
+    text-align: center;
+    color: white;
+    font-size: 20px;
+    border: dotted white;
+    line-height: 80px;
+    float: right;
+}
+.chip5 {
+    width: 75px;
+    height: 75px;
+    border-radius: 37.5px;
+    background-color: blue;
+    text-align: center;
+    color: white;
+    font-size: 20px;
+    border: dotted white;
+    line-height: 80px;
+    float: right;
+}
