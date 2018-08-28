@@ -1,40 +1,62 @@
 console.log("JS loaded")
 
-
-//let cards = ["cA", "c02", "c03", "c04", "c05", "c06", "c07", "c08", "c09", "c10", "cJ", "cQ", "cK"];
-//let card = document.querySelector(".card");
-
 const suits =["c", "d", "h", "s"];
-const nums = ["01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "J", "Q", "K"];
-var dealerHand =[];
-var playerHand= [];
+const nums = ["A", "02", "03", "04", "05", "06", "07", "08", "09","10" , "J", "Q", "K"];
+const dealerHand =[];
+const playerHand =[];
+const deck = []; 
 
-const cards = [];
-suits.forEach(function(suit){
+suits.forEach(function(suit) {
     nums.forEach(function(num){
-        cards.push(suit + num)
+        deck.push(suit + num)
     })
 })
-console.log(cards)
 
 
-// Shuffle the deck
-
-
-function shuffleCards(){
-    for (let i = cards.length -1; i > 0; i--){
+//shuffle deck
+function shuffleDeck(){
+    for (let i = deck.length -1; i > 0; i--){
         var j = Math.floor(Math.random() * (i + 1));
-        var temp = cards[i];
-        cards[i] = cards[j];
-        cards[j] = temp;
+        var temp = deck[i];
+        deck[i] = deck[j];
+        deck[j] = temp;
     }
 }
 
-//function toggleClass(className) {
-  //let currentClass = card[0].classList[1];
-    //card[0].classList.remove(currentClass);
-    //card[0].classList.add(className);
-//}
+function toggleClass(card, newClass) {
+    let currentClass = card.classList[1];
+    card.classList.remove(currentClass);
+    card.classList.add(newClass);
+}
 
-//toggleClass("cJ");
-//toggleClass("c02");
+
+
+
+function dealCards(player, numCards){
+    if (player === "player"){
+       for (var i=0; i < numCards; i++){
+           let cardDealt = deck.pop()
+           playerHand.push(cardDealt);
+        }
+    } else {
+        for (var i=0; i < numCards; i++){
+            let cardDealt = deck.pop()
+            dealerHand.push(cardDealt);
+        }
+    }   
+}
+    
+
+
+//         for (var i = 0; i < 2; i++);
+//         {
+//             for (var j = 0; j < playerHand.length; j++)
+//             {
+//             cardDealt = cards.pop();
+//             playersHand[0].push(cards);
+
+//         }
+//     }
+// }
+
+

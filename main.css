@@ -9,7 +9,22 @@ h1{
     
 }
 
+.deal {
+    padding: 15px;
+    margin: 20px;
+    font-size: 16px;
+}
 
+.hit{
+    padding: 15px;
+    margin: 20px;
+    font-size: 16px;
+}
+ .stay{
+     padding: 15px;
+     margin: 20px;
+     font-size: 16px;
+ }
  
 #wrapper{
     width: 500px;
