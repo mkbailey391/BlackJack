@@ -1,17 +1,26 @@
-console.log("JS loaded")
+console.log("JS loaded");
+
+/*
+ * CONSTANTS AND CACHED DOM ELEMENTS
+ */
 
 const suits =["c", "d", "h", "s"];
 const nums = ["A", "02", "03", "04", "05", "06", "07", "08", "09","10" , "J", "Q", "K"];
 const dealerHand =[];
 const playerHand =[];
-const deck = []; 
+const deck = [];
 
 suits.forEach(function(suit) {
     nums.forEach(function(num){
-        deck.push(suit + num)
+        deck.push(suit + num);
     })
 })
 
+const playerBox = document.getElementById("player");
+const dealerBox = document.getElementById("dealer");
+/*
+ *  UTILITY FUNCTIONS
+ */
 
 //shuffle deck
 function shuffleDeck(){
@@ -33,30 +42,53 @@ function toggleClass(card, newClass) {
 
 
 function dealCards(player, numCards){
-    if (player === "player"){
+    if (player === "player") {
        for (var i=0; i < numCards; i++){
-           let cardDealt = deck.pop()
+           let cardDealt = deck.pop();
            playerHand.push(cardDealt);
         }
     } else {
         for (var i=0; i < numCards; i++){
-            let cardDealt = deck.pop()
+            let cardDealt = deck.pop();
             dealerHand.push(cardDealt);
         }
     }   
 }
+
+function displayHands(player){
+    let handDivs = "";
+    if ("player" === player) {
+        for (var i=0; i<playerHand.length; i++){
+            handDivs += `<div class="card ${playerHand[i]}"></div>`;
+        }
+    } else {
+        for (var i=0; i<dealerHand.length; i++){
+            handDivs += `<div class="card ${dealerHand[i]}"></div>`;
+        }
+    }
     
+    let playerDomNode = player === "player" ? playerBox : dealerBox;
+    console.log(handDivs);
+    playerDomNode.innerHTML = handDivs;
+}
+
+/*
+ *  EVENT LISTENERS
+ */
+let deal = document.querySelector(".deal");
+deal.addEventListener("click", function(dealCards) {
+});
+
+let stay = document.querySelector(".stay");
+stay.addEventListener("click", function(stopDealing){
+});
+
+let hit = document.querySelector(".hit");
+hit.addEventListener("click", function(addCard){
+    console.log("I hit");
+});
 
 
-//         for (var i = 0; i < 2; i++);
-//         {
-//             for (var j = 0; j < playerHand.length; j++)
-//             {
-//             cardDealt = cards.pop();
-//             playersHand[0].push(cards);
-
-//         }
-//     }
-// }
-
-
+/*
+ * RENDER FUNCTIONS
+ */
