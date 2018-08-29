@@ -6,10 +6,11 @@ console.log("JS loaded");
 
 const suits =["c", "d", "h", "s"];
 const nums = ["A", "02", "03", "04", "05", "06", "07", "08", "09","10" , "J", "Q", "K"];
-const dealerHand = [];
+let dealerHand = [];
 let dealerHandValue = 0;
-const playerHand =[];
+let playerHand =[];
 let playerHandValue = 0;
+let hitCount = 0;
 
 const deck = [];
 
@@ -56,41 +57,59 @@ function dealCards(player, numCards){
     }   
 }
 
+function toggleButtons(action) {
+    switch(action) {
+        case "handDealt": 
+            deal.disabled = true;
+            hit.disabled = false;
+            stay.disabled = false;
+            break;
+        case "handFinished":
+            deal.disabled = false;
+            hit.disabled = true;
+            stay.disabled = true;
+            break;
+        default:
+            break;
+        case "handStayed":
+            deal.disabled = true;
+            hit.disabled = true;
+            stay.disabled = false;
+            break;
+    }
+} 
 
-function calcHandValue() {
+function resetHand() {
+    toggleButtons("handFinished");
+    playerHand = [];
+}
+
+function checkHandValue() {
+    let currentHandValue = calcHandValue(playerHand);
+    if (currentHandValue === 21) {
+        alert('You win');
+        resetHand();
+    } else if (currentHandValue > 21) {
+        alert('Bust');
+        resetHand();
+    }
+}
+
+function calcHandValue(hand) {
     let currentHandValue = 0;
-    playerHand.forEach(function(card) {
+    hand.forEach(function(card) {
         let cardValue = card.substr(1);
         if (cardValue === "J" ||  cardValue === "Q" || cardValue === "K") {
             currentHandValue = currentHandValue + 10;    
         } else if (cardValue === "A") {
             currentHandValue = currentHandValue + 11;
-        } else 
+        } else {
             currentHandValue = currentHandValue + parseInt(cardValue);
-
-            console.log(currentHandValue);
-            playerHandValue = currentHandValue;
+        }
     })
+
+    return currentHandValue;
 }
-
-function checkForBlackjack(){
-    let blackjack = 21;
-    if (playerHandValue = 21){
-        return blackjack;
-    }
-    checkForBlackjack();
-    console.log("BLACKJACK!")
-}
-
-function checkIfOver(){
-    if (playerHandValue > 21){
-        console.log("over")
-    }
-
-
-}
-
-
 
 function displayHands(player){
     let handDivs = "";
@@ -116,20 +135,26 @@ let deal = document.querySelector(".deal");
 deal.addEventListener("click", function() {
     dealCards("player", 2);
     displayHands("player");
-    calcHandValue();
-    deal.disabled = true;
+    toggleButtons("handDealt");
+    checkHandValue();
 });
 
 let stay = document.querySelector(".stay");
 stay.addEventListener("click", function(){
-    deal.disabled = false;
+    toggleButtons("handFinished");
 });
 
 let hit = document.querySelector(".hit");
 hit.addEventListener("click", function(){
+    if (playerHand.length >= 5) {
+        hit.disabled = true;
+        return;
+    }
+    hitCount++;
     dealCards("player", 1);
     displayHands("player");
-    calcHandValue();
+    toggleButtons("handStayed");
+    checkHandValue();
 });
 
 
@@ -145,3 +170,5 @@ function startGame() {
     shuffleDeck();
 }
 startGame();
+
+
