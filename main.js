@@ -6,9 +6,13 @@ console.log("JS loaded");
 
 const suits =["c", "d", "h", "s"];
 const nums = ["A", "02", "03", "04", "05", "06", "07", "08", "09","10" , "J", "Q", "K"];
-const dealerHand =[];
+const dealerHand = [];
+let dealerHandValue = 0;
 const playerHand =[];
+let playerHandValue = 0;
+
 const deck = [];
+
 
 suits.forEach(function(suit) {
     nums.forEach(function(num){
@@ -38,9 +42,6 @@ function toggleClass(card, newClass) {
     card.classList.add(newClass);
 }
 
-
-
-
 function dealCards(player, numCards){
     if (player === "player") {
        for (var i=0; i < numCards; i++){
@@ -54,6 +55,42 @@ function dealCards(player, numCards){
         }
     }   
 }
+
+
+function calcHandValue() {
+    let currentHandValue = 0;
+    playerHand.forEach(function(card) {
+        let cardValue = card.substr(1);
+        if (cardValue === "J" ||  cardValue === "Q" || cardValue === "K") {
+            currentHandValue = currentHandValue + 10;    
+        } else if (cardValue === "A") {
+            currentHandValue = currentHandValue + 11;
+        } else 
+            currentHandValue = currentHandValue + parseInt(cardValue);
+
+            console.log(currentHandValue);
+            playerHandValue = currentHandValue;
+    })
+}
+
+function checkForBlackjack(){
+    let blackjack = 21;
+    if (playerHandValue = 21){
+        return blackjack;
+    }
+    checkForBlackjack();
+    console.log("BLACKJACK!")
+}
+
+function checkIfOver(){
+    if (playerHandValue > 21){
+        console.log("over")
+    }
+
+
+}
+
+
 
 function displayHands(player){
     let handDivs = "";
@@ -76,19 +113,35 @@ function displayHands(player){
  *  EVENT LISTENERS
  */
 let deal = document.querySelector(".deal");
-deal.addEventListener("click", function(dealCards) {
+deal.addEventListener("click", function() {
+    dealCards("player", 2);
+    displayHands("player");
+    calcHandValue();
+    deal.disabled = true;
 });
 
 let stay = document.querySelector(".stay");
-stay.addEventListener("click", function(stopDealing){
+stay.addEventListener("click", function(){
+    deal.disabled = false;
 });
 
 let hit = document.querySelector(".hit");
-hit.addEventListener("click", function(addCard){
-    console.log("I hit");
+hit.addEventListener("click", function(){
+    dealCards("player", 1);
+    displayHands("player");
+    calcHandValue();
 });
 
 
 /*
  * RENDER FUNCTIONS
  */
+
+ 
+ 
+ //when i click stay i want no cards to be dealt to the player
+
+function startGame() {
+    shuffleDeck();
+}
+startGame();
