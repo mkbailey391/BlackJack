@@ -1,6 +1,6 @@
-BlackJack
+# BlackJack
 
-https://mkbailey391.github.io/BlackJack/
+[This](https://mkbailey391.github.io/BlackJack/) is a link to my game.
 
 
 
