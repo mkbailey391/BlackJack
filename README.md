@@ -13,10 +13,9 @@ than the dealer without exceeding 21, or let the dealer draw additional cards un
 
 
 
+[This](https://imgur.com/T5Qgq7p) is a link to the finished product image of my game.   
 
-This is a link to my finished product:  https://imgur.com/T5Qgq7p  
-
-This is a link to my wire fram:  https://imgur.com/YztnLwR
+[This](https://imgur.com/YztnLwR) is a link to the wireframe I created before building my game. 
 
 
 
