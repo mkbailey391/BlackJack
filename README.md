@@ -23,3 +23,10 @@ than the dealer without exceeding 21, or let the dealer draw additional cards un
 
 
 I used JavaScript to complete my game. 
+
+
+Next Steps: 
+
+A few bonus features I would like to work on are the betting functions. 
+I would like the bet to stay each time the page is reloaded, rather than resetting everytime. 
+I also know that I need to refactor my code to make it more DRY. 
