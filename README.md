@@ -14,6 +14,7 @@ than the dealer without exceeding 21, or let the dealer draw additional cards un
 
 ![Image of finished product](https://imgur.com/T5Qgq7p)
 
+<blockquote class="imgur-embed-pub" lang="en" data-id="T5Qgq7p"><a href="//imgur.com/T5Qgq7p"></a></blockquote><script async src="//s.imgur.com/min/embed.js" charset="utf-8"></script>
 
 ![Image of wireframe](https://imgur.com/YztnLwR) 
 
