@@ -6,13 +6,13 @@ h1{
     font-family:'Sawarabi Mincho', sans-serif;
     font-size: 64px;
     margin-top: 10px;
-    
 }
 
 .deal {
     padding: 15px;
     margin: 20px;
     font-size: 16px;
+    
 }
 
 .hit{
@@ -92,6 +92,29 @@ h1{
     Position: absolute;
     top: 75%;
     right: 15%;
+}
+
+.modal {
+    position:fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    height: 100px;
+    width: 100px;
+    overflow: auto;
+    background-color: lightgoldenrodyellow;
+}
+
+.modal-content{
+    background-color: grey;
+    margin: 20% auto;
+    padding: 20px;
+    width: 70%;
+}
+.closeBtn{
+    color: lightgrey;
+    float: right;
+    font-size: 30px;
 }
 
     

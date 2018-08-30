@@ -12,12 +12,16 @@
 
 <body>
     <h1>BlackJack</h1>
+    <p class="winner-message"></p>
 
     
 
     <div id="wrapper">
         <div id="dealer" class="box">Dealer</div>
         <div id="player" class="box">Player</div>
+        <br/>
+        <span>Current Bet:&nbsp;</span><span id="currentBet">$0</span>
+        <span>Current Money:&nbsp;</span><span id="currentMoney">$150</span>
         <!-- <div id="player" class="box">
             <h3>Player</h3>
             <div class="card-container">
@@ -29,14 +33,27 @@
     </div>
 
    
-    <button class="deal">Deal</button>
-    <button class="hit" data-clicked="0">Hit</button>
-    <button class="stay">Stay</button>
+    <button class="deal btn">Deal</button>
+    <button class="hit btn" disabled>Hit</button>
+    <button class="stay btn" disabled>Stay</button>
+    <button class=" replay btn">Replay</button>
 
 
     <div class="chip">
     <div class="chip10">$10</div>
     <div class="chip5">$5</div>
+    <button class="btn place-bet">Place Bet</button>
+
+    <!-- <div id="alert" class="modal"></div>
+        <div class="modal content"</div>
+            <span class="close button">&times;</span> -->
+    
+            
+
+
+    
+
+
 
     
 </body>

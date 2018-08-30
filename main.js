@@ -1,31 +1,44 @@
-console.log("JS loaded");
-
 /*
- * CONSTANTS AND CACHED DOM ELEMENTS
+ * CONSTANTS AND STATE
  */
 
 const suits =["c", "d", "h", "s"];
 const nums = ["A", "02", "03", "04", "05", "06", "07", "08", "09","10" , "J", "Q", "K"];
-let dealerHand = [];
-let dealerHandValue = 0;
-let playerHand =[];
-let playerHandValue = 0;
-let hitCount = 0;
-
 const deck = [];
+let winner = false;
+let allMonies = 150;
+let currentBet = 0;
 
+let dealerHand = [];
+let playerHand =[];
+let dealerHandValue = 0;
+let playerHandValue = 0;
+
+/*
+ * CACHED DOM ELEMENTS
+ */
+
+const hit = document.querySelector(".hit");
+const stay = document.querySelector(".stay");
+const deal = document.querySelector(".deal");
+const winnerMessage = document.querySelector('.winner-message');
+const playerBox = document.getElementById("player");
+const dealerBox = document.getElementById("dealer");
+const reload = document.querySelector('.replay');
+const chip = document.querySelector('.chip');
+const currentBetNode = document.querySelector('#currentBet');
+const currentMoneyNode = document.querySelector('#currentMoney');
+
+
+/*
+*  UTILITY FUNCTIONS
+*/
 
 suits.forEach(function(suit) {
     nums.forEach(function(num){
         deck.push(suit + num);
     })
 })
-
-const playerBox = document.getElementById("player");
-const dealerBox = document.getElementById("dealer");
-/*
- *  UTILITY FUNCTIONS
- */
 
 //shuffle deck
 function shuffleDeck(){
@@ -57,41 +70,34 @@ function dealCards(player, numCards){
     }   
 }
 
-function toggleButtons(action) {
-    switch(action) {
-        case "handDealt": 
-            deal.disabled = true;
-            hit.disabled = false;
-            stay.disabled = false;
-            break;
-        case "handFinished":
-            deal.disabled = false;
-            hit.disabled = true;
-            stay.disabled = true;
-            break;
-        default:
-            break;
-        case "handStayed":
-            deal.disabled = true;
-            hit.disabled = true;
-            stay.disabled = false;
-            break;
-    }
-} 
-
-function resetHand() {
-    toggleButtons("handFinished");
-    playerHand = [];
-}
-
 function checkHandValue() {
-    let currentHandValue = calcHandValue(playerHand);
-    if (currentHandValue === 21) {
-        alert('You win');
-        resetHand();
-    } else if (currentHandValue > 21) {
-        alert('Bust');
-        resetHand();
+    let playerHandValue = calcHandValue(playerHand);
+    let dealerHandValue = calcHandValue(dealerHand);
+
+    if (playerHandValue > 21) {
+        winnerMessage.innerText = "Dealer Won! Player bust!";
+        currentBet = 0;
+        winner = true;
+        renderBets();
+    } else if (dealerHandValue > 21) {
+        winnerMessage.innerText = "Player Won! Dealer bust!";
+        allMonies += 2 * currentBet;
+        currentBet = 0;
+        winner = true;
+        renderBets();
+    } else {
+        if (playerHandValue >= dealerHandValue) {
+            winnerMessage.innerText = "Player won!";
+            allMonies += 2 * currentBet;
+            currentBet = 0;
+            winner = true;
+            renderBets();
+        } else {
+            winnerMessage.innerText = "Dealer won!";
+            currentBet = 0;
+            winner = true;
+            renderBets();
+        }
     }
 }
 
@@ -107,7 +113,6 @@ function calcHandValue(hand) {
             currentHandValue = currentHandValue + parseInt(cardValue);
         }
     })
-
     return currentHandValue;
 }
 
@@ -124,51 +129,95 @@ function displayHands(player){
     }
     
     let playerDomNode = player === "player" ? playerBox : dealerBox;
-    console.log(handDivs);
     playerDomNode.innerHTML = handDivs;
 }
 
+function renderBets() {
+    currentBetNode.innerText = `$${currentBet}`;
+    currentMoneyNode.innerText = `$${allMonies}`;
+}
+    
 /*
  *  EVENT LISTENERS
  */
-let deal = document.querySelector(".deal");
+
 deal.addEventListener("click", function() {
     dealCards("player", 2);
+    dealCards("dealer", 2);
     displayHands("player");
-    toggleButtons("handDealt");
-    checkHandValue();
+    displayHands("dealer");
+    
+    const firstDealerCard = document.querySelector('#dealer .card:first-child');
+    firstDealerCard.classList.remove(firstDealerCard.classList[1]);
+    firstDealerCard.classList.add('back');
+
+    deal.disabled = true;
+    hit.disabled = false;
+    stay.disabled = false;
+
 });
 
-let stay = document.querySelector(".stay");
 stay.addEventListener("click", function(){
-    toggleButtons("handFinished");
+    stay.disabled = true;
+    hit.disabled = true;
+
+    while (calcHandValue(dealerHand) < 17) {
+        dealCards("dealer", 1);
+        displayHands(playerHand);
+    }
+
+    checkHandValue();
+
 });
 
-let hit = document.querySelector(".hit");
-hit.addEventListener("click", function(){
-    if (playerHand.length >= 5) {
-        hit.disabled = true;
-        return;
-    }
-    hitCount++;
+hit.addEventListener("click", function() {
+
     dealCards("player", 1);
     displayHands("player");
-    toggleButtons("handStayed");
-    checkHandValue();
+
+    if (calcHandValue(playerHand) > 21) {
+        checkHandValue();
+    }
+
+    if (playerHand.length >= 5 || winner) {
+        hit.disabled = true;
+    }
+
+    if (winner) {
+        stay.disabled = true;
+    }
+
 });
 
+chip.addEventListener('click', function(evt) {
+    
+
+    if (evt.target.classList[0] === "chip10" && allMonies >= 10) {
+        allMonies -= 10;
+        currentBet += 10;
+    }
+
+    if (evt.target.classList[0] === "chip5" && allMonies >= 5) {
+        allMonies -= 5;
+        currentBet += 5;
+    }
+
+    renderBets();
+})
+
+
+reload.addEventListener('click', function() {
+    window.location.reload();
+})
 
 /*
  * RENDER FUNCTIONS
  */
 
- 
- 
- //when i click stay i want no cards to be dealt to the player
-
 function startGame() {
     shuffleDeck();
 }
+
 startGame();
 
 
