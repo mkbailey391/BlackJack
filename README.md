@@ -22,7 +22,7 @@ than the dealer without exceeding 21, or let the dealer draw additional cards un
 
 
 
-I used JavaScript to complete my game. 
+I used HTML, CSS, and JavaScript to complete my game. 
 
 
 Next Steps: 
