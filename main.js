@@ -155,18 +155,28 @@ deal.addEventListener("click", function() {
     hit.disabled = false;
     stay.disabled = false;
 
+    if (calcHandValue(playerHand) === 21) {
+        checkHandValue();
+        deal.disabled = true;
+        hit.disabled = true;
+        stay.disabled = true;
+    }
+
 });
 
 stay.addEventListener("click", function(){
     stay.disabled = true;
     hit.disabled = true;
-
-    while (calcHandValue(dealerHand) < 17) {
-        dealCards("dealer", 1);
-        displayHands(playerHand);
+    displayHands(playerHand);
+    if (calcHandValue(dealerHand) > calcHandValue(playerHand)) {
+        checkHandValue();
+    } else {
+        while (calcHandValue(dealerHand) < 17) {
+            dealCards("dealer", 1);
+            displayHands(playerHand);
+        }
+        checkHandValue();
     }
-
-    checkHandValue();
 
 });
 
